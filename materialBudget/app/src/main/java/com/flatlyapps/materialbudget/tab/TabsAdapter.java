@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.tab;
+package com.flatlyapps.materialbudget.tab;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

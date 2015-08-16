@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.data;
+package com.flatlyapps.materialbudget.data;
 
 /**
  * Created by PaulN on 12/08/2015.

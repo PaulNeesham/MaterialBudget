@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.startup;
+package com.flatlyapps.materialbudget.startup;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.flatlyapps.materialBudget.R;
-import com.flatlyapps.materialBudget.startup.slide.FirstSlide;
+import com.flatlyapps.materialbudget.R;
+import com.flatlyapps.materialbudget.startup.slide.FirstSlide;
 
 import java.util.List;
 import java.util.Vector;

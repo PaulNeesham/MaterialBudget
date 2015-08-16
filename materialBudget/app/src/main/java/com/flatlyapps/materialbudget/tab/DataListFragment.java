@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.tab;
+package com.flatlyapps.materialbudget.tab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flatlyapps.materialBudget.R;
-import com.flatlyapps.materialBudget.list.DataListAdapter;
+import com.flatlyapps.materialbudget.R;
+import com.flatlyapps.materialbudget.list.DataListAdapter;
 
 
 public class DataListFragment extends Fragment {

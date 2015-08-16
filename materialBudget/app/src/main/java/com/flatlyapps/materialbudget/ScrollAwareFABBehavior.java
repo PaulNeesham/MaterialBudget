@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget;
+package com.flatlyapps.materialbudget;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

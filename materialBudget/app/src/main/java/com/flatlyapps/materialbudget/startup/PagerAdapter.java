@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.startup;
+package com.flatlyapps.materialbudget.startup;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

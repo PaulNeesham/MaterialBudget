@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.startup;
+package com.flatlyapps.materialbudget.startup;
 
 /**
  * Created by PaulN on 04/08/2015.

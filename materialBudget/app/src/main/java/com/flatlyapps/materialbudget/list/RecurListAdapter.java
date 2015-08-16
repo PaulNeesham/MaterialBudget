@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.list;
+package com.flatlyapps.materialbudget.list;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.flatlyapps.materialBudget.R;
+import com.flatlyapps.materialbudget.R;
 
 /**
  * Created by Paul on 05/07/2015.

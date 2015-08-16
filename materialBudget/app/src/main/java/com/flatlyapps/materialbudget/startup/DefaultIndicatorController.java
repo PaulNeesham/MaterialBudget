@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.startup;
+package com.flatlyapps.materialbudget.startup;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.flatlyapps.materialBudget.R;
+import com.flatlyapps.materialbudget.R;
 
 import java.util.ArrayList;
 import java.util.List;

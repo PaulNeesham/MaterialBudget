@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.service;
+package com.flatlyapps.materialbudget.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

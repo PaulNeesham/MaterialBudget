@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.startup.slide;
+package com.flatlyapps.materialbudget.startup.slide;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flatlyapps.materialBudget.R;
-import com.flatlyapps.materialBudget.startup.ValidFragment;
+import com.flatlyapps.materialbudget.R;
+import com.flatlyapps.materialbudget.startup.ValidFragment;
 
 
 /**

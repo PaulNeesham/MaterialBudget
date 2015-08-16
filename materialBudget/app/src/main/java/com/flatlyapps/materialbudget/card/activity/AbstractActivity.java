@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.card.activity;
+package com.flatlyapps.materialbudget.card.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

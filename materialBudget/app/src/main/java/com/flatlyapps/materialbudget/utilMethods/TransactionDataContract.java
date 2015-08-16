@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.utilMethods;
+package com.flatlyapps.materialbudget.utilMethods;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
-import com.flatlyapps.materialBudget.R;
+import com.flatlyapps.materialbudget.R;
 
 /**
  * Created by PaulN on 12/08/2015.

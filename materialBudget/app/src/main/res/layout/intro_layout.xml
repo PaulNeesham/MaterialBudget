@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
-    <com.flatlyapps.materialBudget.startup.NonSwipeableViewPager
+    <com.flatlyapps.materialbudget.startup.NonSwipeableViewPager
         android:id="@+id/view_pager"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-    </com.flatlyapps.materialBudget.startup.NonSwipeableViewPager>
+    </com.flatlyapps.materialbudget.startup.NonSwipeableViewPager>
     <LinearLayout
         android:id="@+id/bottom"
         android:background="#00000000"

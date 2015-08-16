@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.card.activity;
+package com.flatlyapps.materialbudget.card.activity;
 
 /**
  * Created by PaulN on 02/08/2015.

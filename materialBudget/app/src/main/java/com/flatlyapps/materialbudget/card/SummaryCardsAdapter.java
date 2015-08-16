@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.card;
+package com.flatlyapps.materialbudget.card;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.flatlyapps.materialBudget.R;
-import com.flatlyapps.materialBudget.card.cardcontent.AbstractContentView;
+import com.flatlyapps.materialbudget.R;
+import com.flatlyapps.materialbudget.card.cardcontent.AbstractContentView;
 
 /**
  * Created by Paul on 05/07/2015.

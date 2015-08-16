@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.card.cardcontent;
+package com.flatlyapps.materialbudget.card.cardcontent;
 
 import android.content.Context;
 

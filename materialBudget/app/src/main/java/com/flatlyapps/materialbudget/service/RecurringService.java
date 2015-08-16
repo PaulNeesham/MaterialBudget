@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.service;
+package com.flatlyapps.materialbudget.service;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -12,11 +12,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.flatlyapps.materialBudget.MainActivity;
-import com.flatlyapps.materialBudget.R;
-import com.flatlyapps.materialBudget.data.Account;
-import com.flatlyapps.materialBudget.data.Recur;
-import com.flatlyapps.materialBudget.utilMethods.UtilMethods;
+import com.flatlyapps.materialbudget.MainActivity;
+import com.flatlyapps.materialbudget.R;
+import com.flatlyapps.materialbudget.data.Account;
+import com.flatlyapps.materialbudget.data.Recur;
+import com.flatlyapps.materialbudget.utilMethods.UtilMethods;
 
 import org.joda.time.DateTime;
 

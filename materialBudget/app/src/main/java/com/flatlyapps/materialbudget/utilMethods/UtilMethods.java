@@ -1,11 +1,11 @@
-package com.flatlyapps.materialBudget.utilMethods;
+package com.flatlyapps.materialbudget.utilMethods;
 
 import android.content.Context;
 
-import com.flatlyapps.materialBudget.data.Account;
-import com.flatlyapps.materialBudget.data.Currency;
-import com.flatlyapps.materialBudget.data.Data;
-import com.flatlyapps.materialBudget.data.Recur;
+import com.flatlyapps.materialbudget.data.Account;
+import com.flatlyapps.materialbudget.data.Currency;
+import com.flatlyapps.materialbudget.data.Data;
+import com.flatlyapps.materialbudget.data.Recur;
 import com.google.ical.compat.jodatime.DateTimeIterator;
 import com.google.ical.compat.jodatime.DateTimeIteratorFactory;
 import com.google.ical.iter.RecurrenceIterator;

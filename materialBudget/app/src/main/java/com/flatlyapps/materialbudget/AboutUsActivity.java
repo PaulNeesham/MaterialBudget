@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget;
+package com.flatlyapps.materialbudget;
 
 import android.os.Build;
 import android.os.Bundle;

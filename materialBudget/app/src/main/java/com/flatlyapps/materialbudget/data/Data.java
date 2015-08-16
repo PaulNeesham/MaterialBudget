@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget.data;
+package com.flatlyapps.materialbudget.data;
 
 import org.joda.time.DateTime;
 

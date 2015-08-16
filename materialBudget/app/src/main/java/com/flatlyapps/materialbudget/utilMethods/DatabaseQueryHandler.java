@@ -1,17 +1,17 @@
-package com.flatlyapps.materialBudget.utilMethods;
+package com.flatlyapps.materialbudget.utilMethods;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.flatlyapps.materialBudget.data.Account;
-import com.flatlyapps.materialBudget.data.Currency;
-import com.flatlyapps.materialBudget.data.Data;
-import com.flatlyapps.materialBudget.data.ExpenseCategory;
-import com.flatlyapps.materialBudget.data.ExpenseCategoryBudget;
-import com.flatlyapps.materialBudget.data.IncomeCategory;
-import com.flatlyapps.materialBudget.data.Recur;
+import com.flatlyapps.materialbudget.data.Account;
+import com.flatlyapps.materialbudget.data.Currency;
+import com.flatlyapps.materialbudget.data.Data;
+import com.flatlyapps.materialbudget.data.ExpenseCategory;
+import com.flatlyapps.materialbudget.data.ExpenseCategoryBudget;
+import com.flatlyapps.materialbudget.data.IncomeCategory;
+import com.flatlyapps.materialbudget.data.Recur;
 import com.google.ical.values.RRule;
 
 import org.joda.time.DateTime;
@@ -22,15 +22,15 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.AccountColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.CurrencyColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.CurrentCurrencyColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.DataColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.DefaultAccountColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.ExpenseCategoryBudgetColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.ExpenseCategoryColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.IncomeCategoryColumns;
-import static com.flatlyapps.materialBudget.utilMethods.TransactionDataContract.RecurColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.AccountColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.CurrencyColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.CurrentCurrencyColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.DataColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.DefaultAccountColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.ExpenseCategoryBudgetColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.ExpenseCategoryColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.IncomeCategoryColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.RecurColumns;
 
 /**
  * Created by PaulN on 12/08/2015.

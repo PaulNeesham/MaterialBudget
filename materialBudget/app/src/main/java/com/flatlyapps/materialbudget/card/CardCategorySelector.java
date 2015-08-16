@@ -1,11 +1,11 @@
-package com.flatlyapps.materialBudget.card;
+package com.flatlyapps.materialbudget.card;
 
 
-import com.flatlyapps.materialBudget.R;
-import com.flatlyapps.materialBudget.card.activity.AbstractActivity;
-import com.flatlyapps.materialBudget.card.activity.DocumentActivity;
-import com.flatlyapps.materialBudget.card.cardcontent.AbstractContentView;
-import com.flatlyapps.materialBudget.card.cardcontent.DocumentContentView;
+import com.flatlyapps.materialbudget.R;
+import com.flatlyapps.materialbudget.card.activity.AbstractActivity;
+import com.flatlyapps.materialbudget.card.activity.DocumentActivity;
+import com.flatlyapps.materialbudget.card.cardcontent.AbstractContentView;
+import com.flatlyapps.materialbudget.card.cardcontent.DocumentContentView;
 
 /**
  * Created by Paul on 21/07/2015.

@@ -1,4 +1,4 @@
-package com.flatlyapps.materialBudget;
+package com.flatlyapps.materialbudget;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,8 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Interpolator;
 
-import com.flatlyapps.materialBudget.startup.StartUpActivity;
-import com.flatlyapps.materialBudget.tab.TabsAdapter;
+import com.flatlyapps.materialbudget.startup.StartUpActivity;
+import com.flatlyapps.materialbudget.tab.TabsAdapter;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
