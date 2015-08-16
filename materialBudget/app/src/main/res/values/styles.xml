@@ -25,11 +25,10 @@
     <style name="AboutUsActivityTheme" parent="DarkActionBarTheme"/>
 
     <style name="DocumentActivityTheme" parent="DarkActionBarTheme">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
         <item name="android:textColorPrimary">@color/text_color_primary</item>
     </style>
+
+    <style name="AddActivityTheme" parent="DarkActionBarTheme"/>
 
     <style name="TabLayoutStyle" parent="MainActivityTheme">
         <item name="colorAccent">@color/tab_accent</item>

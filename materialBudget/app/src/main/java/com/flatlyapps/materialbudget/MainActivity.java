@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Interpolator;
 
+import com.flatlyapps.materialbudget.add.AddActivity;
 import com.flatlyapps.materialbudget.startup.StartUpActivity;
 import com.flatlyapps.materialbudget.tab.TabsAdapter;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -29,7 +30,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 /**
  * Created by PaulN on 13/08/2015.
  */
-public class MainActivity  extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     public static final String UPDATE_INTENT = "com.budget3 Transactions Updated";
     private ReceiveMessages myReceiver = null;
@@ -71,6 +72,13 @@ public class MainActivity  extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         fabData = (FloatingActionButton) findViewById(R.id.fab_add_data);
+        fabData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(addIntent);
+            }
+        });
 
         TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), this);
         tabsPager = (ViewPager) findViewById(R.id.tabs_pager);

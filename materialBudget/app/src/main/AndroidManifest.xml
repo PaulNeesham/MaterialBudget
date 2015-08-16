@@ -15,6 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+         <activity
+         android:name="com.flatlyapps.materialbudget.add.AddActivity"
+         android:label="@string/activity_title_add"
+         android:theme="@style/AddActivityTheme"
+         android:parentActivityName="com.flatlyapps.materialbudget.MainActivity" >
+         <meta-data
+             android:name="android.support.PARENT_ACTIVITY"
+             android:value="com.flatlyapps.materialbudget.MainActivity" />
+        </activity>
         <activity
             android:name="com.flatlyapps.materialbudget.SettingsActivity"
             android:label="@string/activity_title_settings"
