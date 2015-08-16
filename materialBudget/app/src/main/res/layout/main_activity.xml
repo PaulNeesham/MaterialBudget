@@ -44,7 +44,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_white"
         android:layout_gravity="bottom|right"
-        app:layout_behavior="com.flatlyapps.budget3.ScrollAwareFABBehavior"
+        app:layout_behavior="com.flatlyapps.materialbudget.ScrollAwareFABBehavior"
         app:fabSize="normal" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Budget</string>
+    <string name="app_name">Material Budget</string>
     <string name="pref_previously_started">pref_previously_started</string>
 
 
