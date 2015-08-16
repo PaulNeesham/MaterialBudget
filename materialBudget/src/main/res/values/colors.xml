@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_window">#FFE5E5E5</color>
+    <color name="background_window_start_up">#FF222222</color>
+    <color name="primary">#FF3F9FE0</color>
+    <color name="primary_dark">#FF327FB3</color>
+    <color name="accent">#FFFF5722</color>
+    <color name="tab_accent">#FFFFFFFF</color>
+    <color name="text_color_primary">#FFFFFFFF</color>
+    <color name="card_text_color">#FF000000</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="tab_text_white">#FFFFFFFF</color>
+    <color name="tab_text_grey">#FFDDDDDD</color>
+    <color name="green">#FF689F38</color>
+    <color name="dark_green">#FF537F2C</color>
+    <color name="red">#FFC74B46</color>
+    <color name="dark_red">#FF9F3C38</color>
+    <color name="orange">#FFF4842D</color>
+    <color name="dark_orange">#FFC36924</color>
+    <color name="blue">#FF3F9FE0</color>
+    <color name="dark_blue">#FF327FB3</color>
+    <color name="yellow">#FFEEBB00</color>
+    <color name="dark_yellow">#FFBB9300</color>
+</resources>

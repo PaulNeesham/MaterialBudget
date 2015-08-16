@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors">
+        <item>#1abc9c</item>
+        <item>#2ecc71</item>
+        <item>#22A7F0</item>
+        <item>#9b59b6</item>
+        <item>#F4B350</item>
+        <item>#e67e22</item>
+        <item>#e74c3c</item>
+        <item>#913D88</item>
+        <item>#CF000F</item>
+        <item>#E08283</item>
+        <item>#E87E04</item>
+        <item>#65C6BB</item>
+        <item>#52B3D9</item>
+        <item>#9A12B3</item>
+        <item>#F22613</item>
+        <item>#1BBC9B</item>
+        <item>#16A085</item>
+        <item>#BF55EC</item>
+        <item>#E26A6A</item>
+        <item>#F2784B</item>
+        <item>#1BA39C</item>
+        <item>#3FC380</item>
+        <item>#BE90D4</item>
+        <item>#D91E18</item>
+        <item>#EB974E</item>
+        <item>#66CC99</item>
+        <item>#019875</item>
+        <item>#336E7B</item>
+        <item>#8E44AD</item>
+        <item>#96281B</item>
+        <item>#F5AB35</item>
+        <item>#36D7B7</item>
+        <item>#26C281</item>
+        <item>#6BB9F0</item>
+        <item>#EF4836</item>
+        <item>#D35400</item>
+        <item>#049372</item>
+        <item>#03A678</item>
+        <item>#1E8BC3</item>
+    </array>
+    <array name="income_cats">
+        <item>"Wage"</item>
+        <item>"Transfers"</item>
+        <item>"Gift"</item>
+        <item>"Bonus"</item>
+    </array>
+    <array name="income_cats_ids">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </array>
+    <array name="expense_cats">
+        <item>"Basics"</item>
+        <item>"Bills"</item>
+        <item>"Leisure"</item>
+        <item>"Travel"</item>
+        <item>"Utilities"</item>
+        <item>"Rent"</item>
+        <item>"Shopping"</item>
+    </array>
+    <array name="expense_cats_ids">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </array>
+
+</resources>

@@ -1,0 +1,199 @@
+package com.flatlyapps.materialBudget;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPropertyAnimatorListener;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Interpolator;
+
+import com.flatlyapps.materialBudget.startup.StartUpActivity;
+import com.flatlyapps.materialBudget.tab.TabsAdapter;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+/**
+ * Created by PaulN on 13/08/2015.
+ */
+public class MainActivity  extends AppCompatActivity {
+
+    public static final String UPDATE_INTENT = "com.budget3 Transactions Updated";
+    private ReceiveMessages myReceiver = null;
+    private Boolean myReceiverIsRegistered = false;
+    private FloatingActionButton fabData;
+    private ViewPager tabsPager;
+
+    public class ReceiveMessages extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equalsIgnoreCase(MainActivity.UPDATE_INTENT)) {
+                MainActivity.this.checkForChanges();
+            }
+        }
+    }
+
+    private void checkForChanges() {
+        //todo update current views
+    }
+
+
+    @Override
+    protected void onPause() {
+        if (myReceiverIsRegistered) {
+            unregisterReceiver(myReceiver);
+            myReceiverIsRegistered = false;
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        myReceiver = new ReceiveMessages();
+        setContentView(R.layout.main_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        fabData = (FloatingActionButton) findViewById(R.id.fab_add_data);
+
+        TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), this);
+        tabsPager = (ViewPager) findViewById(R.id.tabs_pager);
+        tabsPager.setAdapter(tabsAdapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs_layout);
+        tabLayout.setupWithViewPager(tabsPager);
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            int current = 0;
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabsPager.setCurrentItem(tab.getPosition());
+                animateFab(current, tab.getPosition());
+                current = tabsPager.getCurrentItem();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        int shadowColor = getResources().getColor(R.color.primary_dark);
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setTintColor(shadowColor);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if (!previouslyStarted) {
+            Intent startUpIntent = new Intent(this, StartUpActivity.class);
+            startActivity(startUpIntent);
+        } else if (!myReceiverIsRegistered) {
+            registerReceiver(myReceiver, new IntentFilter(UPDATE_INTENT));
+            myReceiverIsRegistered = true;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            case R.id.menu_about_us:
+                Intent aboutUsIntent = new Intent(this, AboutUsActivity.class);
+                startActivity(aboutUsIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    static final Interpolator FAST_OUT_SLOW_IN_INTERPOLATOR = new FastOutSlowInInterpolator();
+    int[] iconIntArray = {R.drawable.ic_add_white,R.drawable.ic_add_white,R.drawable.ic_add_white,R.drawable.ic_account_add_white};
+
+    protected void animateFab(final int currentPosition, final int newPosition) {
+
+        fabData.clearAnimation();
+        if (fabData.getVisibility() != View.VISIBLE) {
+            fabData.setImageResource(iconIntArray[newPosition]);
+            fabData.show();
+        } else {
+            if((newPosition ==3 && currentPosition !=3)|| ((newPosition !=3 && currentPosition ==3))) {
+                final ViewPropertyAnimatorListener listener2 = new ViewPropertyAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(View view) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(View view) {
+                        fabData.show();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(View view) {
+
+                    }
+
+                };
+                ViewPropertyAnimatorListener listener = new ViewPropertyAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(View view) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(View view) {
+                        fabData.hide();
+                        fabData.setImageResource(iconIntArray[newPosition]);
+                        ViewCompat.animate(fabData).scaleX(1.0F).scaleY(1.0F).alpha(1.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(listener2).start();
+                    }
+
+                    @Override
+                    public void onAnimationCancel(View view) {
+
+                    }
+
+                };
+
+                ViewCompat.animate(fabData).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(listener).start();
+            }
+        }
+    }
+
+}

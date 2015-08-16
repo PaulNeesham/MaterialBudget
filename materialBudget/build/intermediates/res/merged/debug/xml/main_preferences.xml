@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <CheckBoxPreference
+        android:key="pref_sync"
+        android:title="@string/nav_settings_title_annie_cool"
+        android:summary="@string/nav_settings_summary_annie_cool"
+        android:defaultValue="true" />
+</PreferenceScreen><!-- From: file:/C:/Users/PaulN/AndroidStudioProjects/Budget%20-%202/Budget3/src/main/res/xml/main_preferences.xml -->

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_settings"
+        android:title="@string/nav_menu_settings"/>
+    <item android:id="@+id/menu_about_us"
+        android:title="@string/nav_menu_about_us" />
+</menu><!-- From: file:/C:/Users/PaulN/AndroidStudioProjects/Budget%20-%202/Budget3/src/main/res/menu/main_menu.xml -->

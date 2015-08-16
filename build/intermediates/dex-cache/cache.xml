@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.mikepenz\aboutlibraries\5.0.9\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="561ebf80ce7c7a16265e9ecca7b964227a412eb9">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\classes-cfd451efee588d37f4c6992f11f5f819b06e8817.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3abb4b88f5a8a0584a9b01d3170d7165f12f8588">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\classes-c424c3cb28aa00c7bf6a8dcc3246013817ab6905.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\libs\rfc2445-4Mar2011.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f90507d79f67fca65cb548557e7c73079f275e00">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\rfc2445-4Mar2011-9705cb98f716a9ca143147dc2dc07a7c823b1171.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-60992d2ffa156de7880912eae68f889202e04db6.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\classes-9efdbd85564cbfd6f190514dced4c7eecf418358.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\.gradle\caches\modules-2\files-2.1\com.readystatesoftware.systembartint\systembartint\1.0.3\de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287\systembartint-1.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="de4f7404e2f58d8f6e83cb1e85d0c2d6c2987287">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\systembartint-1.0.3-537f2bd09d2e9bcdb33dc13c9c39787ba5034d2f.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.android.support\design\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\classes-f0ec88d7fe53fab6139d29474f1500f04363c267.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e1fa5e1123997a55e3ed65b44892993ff4b58cfe">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\classes-277d9cb5dfc08577a52851051045af436aa549d6.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.8.2\d27c24204c5e507b16fec01006b3d0f1ec42aed4\joda-time-2.8.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d27c24204c5e507b16fec01006b3d0f1ec42aed4">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\joda-time-2.8.2-b9b6b265ff104e9e59d69955afd28eb86664ddd1.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-0174e6319c62af6f94c4a8b87f26d543bfe10941.jar" />
+    </item>
+    <item
+        jar="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="C:\Users\PaulN\AndroidStudioProjects\Budget - 2\Budget3\build\intermediates\pre-dexed\debug\classes-8a6dacccac81b4e64ba457ac19d2e4e2ac34de56.jar" />
+    </item>
+
+</items>

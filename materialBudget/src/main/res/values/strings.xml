@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Budget</string>
+    <string name="pref_previously_started">pref_previously_started</string>
+
+
+    <string name="card_title_documents">Documents</string>
+    <string name="activity_title_documents">Documents</string>
+    <string name="activity_title_settings">Settings</string>
+    <string name="activity_title_about_us">About Us</string>
+    <string name="activity_title_start_up">Start Up</string>
+    <string name="nav_menu_settings">Settings</string>
+    <string name="nav_menu_about_us">About Us</string>
+
+    <string name="nav_settings_title_annie_cool">Is Annie cool?</string>
+    <string name="nav_settings_summary_annie_cool">Annies always cool TBH</string>
+
+    <string name="done_button">DONE</string>
+
+
+</resources>
