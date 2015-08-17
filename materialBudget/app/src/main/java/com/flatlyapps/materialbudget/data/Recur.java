@@ -168,7 +168,7 @@ public class Recur {
     }
 
     public Data createData(DateTime dateTime) {
-        return new Data(null, name,account,cost,incomeCategory,expenseCategory,dateTime,this,transferTo,transferFrom);
+        return new Data(null, name,account,cost,incomeCategory,expenseCategory,dateTime,this,transferTo,transferFrom, null);
     }
 
     @Override

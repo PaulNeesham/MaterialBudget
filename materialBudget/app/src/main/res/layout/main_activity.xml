@@ -37,13 +37,89 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+
+    <TextView
+        android:id="@+id/fab_add_mini_label_transfer"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/label_height"
+        android:layout_gravity="bottom|right"
+        android:gravity="center"
+        android:textColor="@color/label_text_color"
+        android:text="@string/transfer_label"
+        android:layout_marginBottom="@dimen/mini_fab_transfer_margin_bottom"
+        android:layout_marginRight="@dimen/label_right_margin"/>
+
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add_data"
+        android:visibility="gone"
+        android:id="@+id/fab_add_mini_transfer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white"
+        android:layout_marginBottom="@dimen/mini_fab_transfer_margin_bottom"
+        android:layout_marginRight="@dimen/mini_fab_right_margin"
         android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_arrow_transfer"
+        app:backgroundTint="@color/transfer"
+        app:layout_behavior="com.flatlyapps.materialbudget.ScrollAwareFABMiniBehavior"
+        app:fabSize="mini" />
+
+    <TextView
+        android:id="@+id/fab_add_mini_label_expense"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/label_height"
+        android:layout_gravity="bottom|right"
+        android:gravity="center"
+        android:textColor="@color/label_text_color"
+        android:text="@string/expense_label"
+        android:layout_marginBottom="@dimen/mini_fab_expense_margin_bottom"
+        android:layout_marginRight="@dimen/label_right_margin"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/fab_add_mini_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/mini_fab_expense_margin_bottom"
+        android:layout_marginRight="@dimen/mini_fab_right_margin"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_arrow_expense"
+        app:backgroundTint="@color/expense"
+        app:layout_behavior="com.flatlyapps.materialbudget.ScrollAwareFABMiniBehavior"
+        app:fabSize="mini" />
+
+    <TextView
+        android:id="@+id/fab_add_mini_label_income"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/label_height"
+        android:layout_gravity="bottom|right"
+        android:gravity="center"
+        android:textColor="@color/label_text_color"
+        android:text="@string/income_label"
+        android:layout_marginBottom="@dimen/mini_fab_income_margin_bottom"
+        android:layout_marginRight="@dimen/label_right_margin"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/fab_add_mini_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/mini_fab_income_margin_bottom"
+        android:layout_marginRight="@dimen/mini_fab_right_margin"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_arrow_income"
+        app:backgroundTint="@color/income"
+        app:layout_behavior="com.flatlyapps.materialbudget.ScrollAwareFABMiniBehavior"
+        app:fabSize="mini" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_data"
+        android:layout_gravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_white"
         app:layout_behavior="com.flatlyapps.materialbudget.ScrollAwareFABBehavior"
         app:fabSize="normal" />
 

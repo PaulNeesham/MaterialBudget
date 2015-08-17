@@ -21,6 +21,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
+import android.widget.TextView;
 
 import com.flatlyapps.materialbudget.add.AddActivity;
 import com.flatlyapps.materialbudget.startup.StartUpActivity;
@@ -36,7 +38,19 @@ public class MainActivity extends AppCompatActivity {
     private ReceiveMessages myReceiver = null;
     private Boolean myReceiverIsRegistered = false;
     private FloatingActionButton fabData;
+    private FloatingActionButton fabMini1;
+    private FloatingActionButton fabMini2;
+    private FloatingActionButton fabMini3;
     private ViewPager tabsPager;
+    private TextView fabMiniLabel1;
+    private TextView fabMiniLabel2;
+    private TextView fabMiniLabel3;
+
+    public void hideLabels() {
+        ViewCompat.animate(fabMiniLabel1).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+        ViewCompat.animate(fabMiniLabel2).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+        ViewCompat.animate(fabMiniLabel3).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+    }
 
     public class ReceiveMessages extends BroadcastReceiver {
         @Override
@@ -72,11 +86,56 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         fabData = (FloatingActionButton) findViewById(R.id.fab_add_data);
+        fabMini1 = (FloatingActionButton) findViewById(R.id.fab_add_mini_transfer);
+        fabMiniLabel1 = (TextView) findViewById(R.id.fab_add_mini_label_transfer);
+        fabMiniLabel1.setScaleX(0.0f);
+        fabMiniLabel1.setScaleY(0.0f);
+
+        fabMini2 = (FloatingActionButton) findViewById(R.id.fab_add_mini_expense);
+        fabMiniLabel2 = (TextView) findViewById(R.id.fab_add_mini_label_expense);
+        fabMiniLabel2.setScaleX(0.0f);
+        fabMiniLabel2.setScaleY(0.0f);
+        fabMini3 = (FloatingActionButton) findViewById(R.id.fab_add_mini_income);
+        fabMiniLabel3 = (TextView) findViewById(R.id.fab_add_mini_label_income);
+        fabMiniLabel3.setScaleX(0.0f);
+        fabMiniLabel3.setScaleY(0.0f);
         fabData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addIntent = new Intent(MainActivity.this, AddActivity.class);
-                startActivity(addIntent);
+                if(tabsPager.getCurrentItem() != 3) {
+                    String open = (String) fabData.getTag();
+                    if (open == null || open.equals("closed")) {
+                        final OvershootInterpolator interpolator = new OvershootInterpolator();
+                        ViewCompat.animate(fabData).rotation(135f).withLayer().setDuration(300).setInterpolator(interpolator).start();
+                        fabMini1.show();
+                        fabMini1.setTag("open");
+                        fabMini2.show();
+                        fabMini2.setTag("open");
+                        fabMini3.show();
+                        fabMini3.setTag("open");
+                        fabData.setTag("open");
+                        fabMiniLabel1.setVisibility(View.VISIBLE);
+                        fabMiniLabel2.setVisibility(View.VISIBLE);
+                        fabMiniLabel3.setVisibility(View.VISIBLE);
+                        ViewCompat.animate(fabMiniLabel1).scaleX(1.0F).scaleY(1.0F).alpha(1.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                        ViewCompat.animate(fabMiniLabel2).scaleX(1.0F).scaleY(1.0F).alpha(1.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                        ViewCompat.animate(fabMiniLabel3).scaleX(1.0F).scaleY(1.0F).alpha(1.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+
+                    } else {
+                        final OvershootInterpolator interpolator = new OvershootInterpolator();
+                        ViewCompat.animate(fabData).rotation(0f).withLayer().setDuration(300).setInterpolator(interpolator).start();
+                        fabMini1.hide();
+                        fabMini1.setTag("closed");
+                        fabMini2.hide();
+                        fabMini2.setTag("closed");
+                        fabMini3.hide();
+                        fabMini3.setTag("closed");
+                        fabData.setTag("closed");
+                        ViewCompat.animate(fabMiniLabel1).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                        ViewCompat.animate(fabMiniLabel2).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                        ViewCompat.animate(fabMiniLabel3).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                    }
+                }
             }
         });
 
@@ -199,7 +258,17 @@ public class MainActivity extends AppCompatActivity {
 
                 };
 
-                ViewCompat.animate(fabData).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(listener).start();
+                ViewCompat.animate(fabData).rotation(0.0F).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(listener).start();
+                fabMini1.hide();
+                fabMini1.setTag("closed");
+                fabMini2.hide();
+                fabMini2.setTag("closed");
+                fabMini3.hide();
+                fabMini3.setTag("closed");
+                ViewCompat.animate(fabMiniLabel1).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                ViewCompat.animate(fabMiniLabel2).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                ViewCompat.animate(fabMiniLabel3).scaleX(0.0F).scaleY(0.0F).alpha(0.0F).setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR).withLayer().setListener(null).start();
+                fabData.setTag("closed");
             }
         }
     }

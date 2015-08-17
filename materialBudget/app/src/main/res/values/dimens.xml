@@ -5,4 +5,14 @@
 
     <dimen name="card_radius">8dp</dimen>
     <dimen name="card_margin">8dp</dimen>
+
+    <dimen name="fab_margin">8dp</dimen>
+
+    <dimen name="label_right_margin">64dp</dimen>
+    <dimen name="mini_fab_right_margin">16dp</dimen>
+    <dimen name="label_height">40dp</dimen>
+
+    <dimen name="mini_fab_transfer_margin_bottom">168dp</dimen>
+    <dimen name="mini_fab_expense_margin_bottom">120dp</dimen>
+    <dimen name="mini_fab_income_margin_bottom">72dp</dimen>
 </resources>

@@ -22,6 +22,7 @@ import com.flatlyapps.materialbudget.R;
     private static final String LONG_TYPE = " BIGINT";
     private static final String BOOLEAN_TYPE = " BOOLEAN";
     private static final String DATETIME_TYPE = " BIGINT";
+    private static final String DOUBLE_TYPE = " DOUBLE";
     private static final String PRIMARY_KEY = " PRIMARY KEY";
     private static final String UNIQUE = " UNIQUE";
     private static final String COMMA_SEP = ",";
@@ -41,6 +42,7 @@ import com.flatlyapps.materialbudget.R;
         public static final String COLUMN_TRANSFER_TO = "transfer_to";
         public static final String COLUMN_TRANSFER_FROM = "transfer_from";
         public static final String COLUMN_RECUR_ID = "recur_id";
+        public static final String COLUMN_lOCATION_ID = "location_id";
     }
 
     private static final String SQL_CREATE_DATA = "CREATE TABLE "
@@ -58,7 +60,8 @@ import com.flatlyapps.materialbudget.R;
             + DataColumns.COLUMN_TRANSFER + BOOLEAN_TYPE + COMMA_SEP
             + DataColumns.COLUMN_TRANSFER_TO + LONG_TYPE + COMMA_SEP
             + DataColumns.COLUMN_TRANSFER_FROM + LONG_TYPE + COMMA_SEP
-            + DataColumns.COLUMN_RECUR_ID + LONG_TYPE
+            + DataColumns.COLUMN_RECUR_ID + LONG_TYPE + COMMA_SEP
+            + DataColumns.COLUMN_lOCATION_ID + LONG_TYPE
             + " )";
 
     public static abstract class RecurColumns implements BaseColumns {
@@ -191,6 +194,81 @@ import com.flatlyapps.materialbudget.R;
             + CurrentCurrencyColumns.COLUMN_CURRENCY_ID + LONG_TYPE
             + " )";
 
+    public static abstract class LocationColumns implements BaseColumns {
+        public static final String TABLE_NAME = "location_New";
+        public static final String COLUMN_ADDRESS_LINE = "AddressLine";
+        public static final String COLUMN_ADDRESS_LINE1 = "AddressLine1";
+        public static final String COLUMN_ADDRESS_LINE2 = "AddressLine2";
+        public static final String COLUMN_ADDRESS_LINE3 = "AddressLine3";
+        public static final String COLUMN_ADDRESS_LINE4 = "AddressLine4";
+        public static final String COLUMN_ADDRESS_LINE5 = "AddressLine5";
+        public static final String COLUMN_ADDRESS_LINE6 = "AddressLine6";
+        public static final String COLUMN_ADDRESS_LINE7 = "AddressLine7";
+        public static final String COLUMN_ADDRESS_LINE8 = "AddressLine8";
+        public static final String COLUMN_ADDRESS_LINE9 = "AddressLine9";
+        public static final String COLUMN_ADDRESS_LINE10 = "AddressLine10";
+        public static final String COLUMN_ADMIN_AREA = "AdminArea";
+        public static final String COLUMN_COUNTRY_CODE = "CountryCode";
+        public static final String COLUMN_COUNTRY_NAME = "CountryName";
+        public static final String COLUMN_FEATURE_NAME = "FeatureName";
+        public static final String COLUMN_LATITUDE = "Latitude";
+        public static final String COLUMN_LOCALE = "Locale";
+        public static final String COLUMN_LOCALITY = "Locality";
+        public static final String COLUMN_LONGITUDE = "Longitude";
+        public static final String COLUMN_MAX_ADDRESSLINE_INDEX = "MaxAddressLineIndex";
+        public static final String COLUMN_PHONE = "Phone";
+        public static final String COLUMN_POSTAL_CODE = "PostalCode";
+        public static final String COLUMN_PREMISES = "Premises";
+        public static final String COLUMN_SUB_ADMIN_AREA = "SubAdminArea";
+        public static final String COLUMN_SUB_LOCALITY = "SubLocality";
+        public static final String COLUMN_SUB_THOROUGHFARE = "SubThoroughfare";
+        public static final String COLUMN_THOROUGHFARE = "Thoroughfare";
+        public static final String COLUMN_URL = "Url";
+    }
+
+    private static final String SQL_CREATE_LOCATION = "CREATE TABLE "
+            + LocationColumns.TABLE_NAME + " ("
+            + LocationColumns._ID + LONG_TYPE + PRIMARY_KEY + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE1 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE2 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE3 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE4 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE5 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE6 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE7 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE8 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE9 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADDRESS_LINE10 + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_ADMIN_AREA + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_COUNTRY_CODE + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_COUNTRY_NAME + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_FEATURE_NAME + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_LATITUDE + DOUBLE_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_LOCALE + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_LOCALITY + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_LONGITUDE + DOUBLE_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_MAX_ADDRESSLINE_INDEX + INTEGER_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_PHONE + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_POSTAL_CODE + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_PREMISES + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_SUB_ADMIN_AREA + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_SUB_LOCALITY + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_SUB_THOROUGHFARE + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_THOROUGHFARE + TEXT_TYPE + COMMA_SEP
+            + LocationColumns.COLUMN_URL + TEXT_TYPE
+            + " )";
+
+    public static abstract class PhotoColumns implements BaseColumns {
+        public static final String TABLE_NAME = "photo_New";
+        public static final String COLUMN_PHOTO_PATH = "photo_id";
+    }
+
+    private static final String SQL_CREATE_PHOTO = "CREATE TABLE "
+            + PhotoColumns.TABLE_NAME + " ("
+            + PhotoColumns._ID + LONG_TYPE + PRIMARY_KEY + COMMA_SEP
+            + PhotoColumns.COLUMN_PHOTO_PATH + TEXT_TYPE
+            + " )";
+
     public class TransactionDataDbHelper extends SQLiteOpenHelper {
         // If you change the database schema, you must increment the database version.
         public static final int DATABASE_VERSION = 1;
@@ -212,6 +290,8 @@ import com.flatlyapps.materialbudget.R;
             db.execSQL(SQL_CREATE_EXPENSE_CATEGORY_BUDGET);
             db.execSQL(SQL_CREATE_CURRENCY);
             db.execSQL(SQL_CREATE_CURRENT_CURRENCY);
+            db.execSQL(SQL_CREATE_LOCATION);
+            db.execSQL(SQL_CREATE_PHOTO);
 
             int[] colors = context.getResources().getIntArray(R.array.colors);
             String[] catsNameArray = context.getResources().getStringArray(R.array.income_cats);

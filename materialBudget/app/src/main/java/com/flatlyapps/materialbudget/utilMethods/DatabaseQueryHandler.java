@@ -4,10 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Address;
+import android.net.Uri;
 
 import com.flatlyapps.materialbudget.data.Account;
 import com.flatlyapps.materialbudget.data.Currency;
 import com.flatlyapps.materialbudget.data.Data;
+import com.flatlyapps.materialbudget.data.DataAddress;
+import com.flatlyapps.materialbudget.data.DataPhotos;
 import com.flatlyapps.materialbudget.data.ExpenseCategory;
 import com.flatlyapps.materialbudget.data.ExpenseCategoryBudget;
 import com.flatlyapps.materialbudget.data.IncomeCategory;
@@ -16,8 +20,11 @@ import com.google.ical.values.RRule;
 
 import org.joda.time.DateTime;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -31,6 +38,8 @@ import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.ExpenseCategoryColumns;
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.IncomeCategoryColumns;
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.RecurColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.LocationColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.PhotoColumns;
 
 /**
  * Created by PaulN on 12/08/2015.
@@ -42,6 +51,8 @@ class DatabaseQueryHandler {
     private static final String TAG = "DataBase";
     private static final Lock lock = new ReentrantLock();
 
+    private static Map<Long, DataPhotos>  photo_cache;
+    private static Map<Long, DataAddress> address_cache;
     private static Map<Long, Data> data_cache;
     private static Map<Long, Recur> recur_cache;
     private static Map<Long, Account> account_cache;
@@ -143,6 +154,302 @@ class DatabaseQueryHandler {
             db.close();
             current_currency_cache = getCurrency(context, currencyId);
             return current_currency_cache;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static Map<Long, DataPhotos> getPhotos(Context context) {
+        lock.lock();
+        try {
+            if(photo_cache == null) {
+                photo_cache = new HashMap<>();
+                SQLiteDatabase db = getReadableDatabase(context);
+                String[] selectionArgs = new String[0];
+                String sql = "SELECT * from " +  PhotoColumns.TABLE_NAME;
+                Cursor myCursor = db.rawQuery(sql, selectionArgs);
+
+                if (myCursor.moveToFirst()) {
+                    do {
+                        Long id = myCursor.getLong(
+                                myCursor.getColumnIndexOrThrow(PhotoColumns._ID));
+
+                        String path = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(PhotoColumns.COLUMN_PHOTO_PATH));
+
+                        photo_cache.put(id, new DataPhotos(id, path));
+                    } while (myCursor.moveToNext());
+                }
+
+                myCursor.close();
+                db.close();
+            }
+            return photo_cache;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static DataPhotos getPhoto(Context context, Long photoId) {
+        lock.lock();
+        try {
+            return getPhotos(context).get(photoId);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static void addPhoto(Context context, DataPhotos dataPhotos) throws Exception {
+        lock.lock();
+        try {
+            SQLiteDatabase db = getWritableDatabase(context);
+            ContentValues values = new ContentValues();
+            values.put(PhotoColumns.COLUMN_PHOTO_PATH, dataPhotos.getPath());
+            Long id = db.insert(PhotoColumns.TABLE_NAME, "NULL", values);
+            dataPhotos.setId(id);
+            photo_cache.put(id, dataPhotos);
+            db.close();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static DataPhotos editPhoto(Context context, DataPhotos dataPhotos) throws Exception {
+        lock.lock();
+        try {
+            DataPhotos currentDataPhotos = getPhoto(context, dataPhotos.getId());
+
+            if (currentDataPhotos != null) {
+                dataPhotos.setPath(dataPhotos.getPath());
+                SQLiteDatabase db = getWritableDatabase(context);
+                ContentValues values = new ContentValues();
+
+                values.put(LocationColumns._ID, dataPhotos.getId());
+                values.put(PhotoColumns.COLUMN_PHOTO_PATH, dataPhotos.getPath());
+
+                // Insert the new row, returning the primary key value of the new row
+                db.update(PhotoColumns.TABLE_NAME, values, null, null);
+                db.close();
+                return currentDataPhotos;
+            } else {
+                throw new Exception(dataPhotos.getId() + " Photo doesn't exists");
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static void removePhoto(Context context, DataPhotos dataPhotos) throws Exception {
+        lock.lock();
+        try {
+            DataPhotos currentDataPhotos = getPhoto(context, dataPhotos.getId());
+
+            if (currentDataPhotos != null) {
+                SQLiteDatabase db = getWritableDatabase(context);
+                db.delete(PhotoColumns.TABLE_NAME, PhotoColumns._ID + "=" + currentDataPhotos.getId(), null);
+                db.close();
+                photo_cache.remove(dataPhotos.getId());
+            } else {
+                throw new Exception(dataPhotos.getId() + " Photo doesn't exists");
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static Map<Long, DataAddress> getAddresses(Context context) {
+        lock.lock();
+        try {
+            if(address_cache == null) {
+                address_cache = new HashMap<>();
+                SQLiteDatabase db = getReadableDatabase(context);
+                String[] selectionArgs = new String[0];
+                String sql = "SELECT * from " +  LocationColumns.TABLE_NAME;
+                Cursor myCursor = db.rawQuery(sql, selectionArgs);
+
+                if (myCursor.moveToFirst()) {
+                    do {
+                        Long id = myCursor.getLong(
+                                myCursor.getColumnIndexOrThrow(LocationColumns._ID));
+                        int maxAddressLineIndex = myCursor.getInt(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_MAX_ADDRESSLINE_INDEX));
+                        maxAddressLineIndex = maxAddressLineIndex >9 ? 9 : maxAddressLineIndex;
+
+                        String localeString = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_LOCALE));
+                        Locale locale = new Locale(localeString);
+
+                        Address address = new Address(locale);
+                        for(int i = 0 ; i <= maxAddressLineIndex ; i++){
+                            String addressLine = myCursor.getString(
+                                    myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_ADDRESS_LINE+(i+1)));
+                            address.setAddressLine(i, addressLine);
+                        }
+
+                        String adminArea = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_ADMIN_AREA));
+                        address.setAdminArea(adminArea);
+                        String countryCode = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_COUNTRY_CODE));
+                        address.setCountryCode(countryCode);
+                        String countryName = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_COUNTRY_NAME));
+                        address.setCountryName(countryName);
+                        String featureName = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_FEATURE_NAME));
+                        address.setFeatureName(featureName);
+                        double latitude = myCursor.getDouble(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_LATITUDE));
+                        address.setLatitude(latitude);
+                        String locality = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_LOCALITY));
+                        address.setLocality(locality);
+                        double longitude = myCursor.getDouble(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_LONGITUDE));
+                        address.setLongitude(longitude);
+                        String phone = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_PHONE));
+                        address.setPhone(phone);
+                        String postalCode = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_POSTAL_CODE));
+                        address.setPostalCode(postalCode);
+                        String premises = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_PREMISES));
+                        address.setPremises(premises);
+                        String subAdminArea = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_SUB_ADMIN_AREA));
+                        address.setSubAdminArea(subAdminArea);
+                        String subLocality = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_SUB_LOCALITY));
+                        address.setSubLocality(subLocality);
+                        String subThoroughfare = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_SUB_THOROUGHFARE));
+                        address.setSubThoroughfare(subThoroughfare);
+                        String thoroughfare = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_THOROUGHFARE));
+                        address.setThoroughfare(thoroughfare);
+                        String url = myCursor.getString(
+                                myCursor.getColumnIndexOrThrow(LocationColumns.COLUMN_URL));
+
+                        address.setUrl(url);
+
+                        address_cache.put(id, new DataAddress(id, address));
+                    } while (myCursor.moveToNext());
+                }
+
+                myCursor.close();
+                db.close();
+            }
+            return address_cache;
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static DataAddress getAddress(Context context, Long addressId) {
+        lock.lock();
+        try {
+            return getAddresses(context).get(addressId);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static void addAddress(Context context, DataAddress dataAddress) throws Exception {
+        lock.lock();
+        try {
+
+            SQLiteDatabase db = getWritableDatabase(context);
+            ContentValues values = new ContentValues();
+            Address address = dataAddress.getAddress();
+            values.put(LocationColumns.COLUMN_MAX_ADDRESSLINE_INDEX, address.getMaxAddressLineIndex());
+            values.put(LocationColumns.COLUMN_LOCALE, address.getLocale().getLanguage());
+            for(int i = 0 ; i <= address.getMaxAddressLineIndex() ; i++){
+                values.put(LocationColumns.COLUMN_ADDRESS_LINE + (i + 1), address.getAddressLine(i));
+            }
+            values.put(LocationColumns.COLUMN_ADMIN_AREA, address.getAdminArea());
+            values.put(LocationColumns.COLUMN_COUNTRY_CODE, address.getCountryCode());
+            values.put(LocationColumns.COLUMN_COUNTRY_NAME, address.getCountryName());
+            values.put(LocationColumns.COLUMN_FEATURE_NAME, address.getFeatureName());
+            values.put(LocationColumns.COLUMN_LATITUDE, address.getLatitude());
+            values.put(LocationColumns.COLUMN_LOCALITY, address.getLocality());
+            values.put(LocationColumns.COLUMN_LONGITUDE, address.getLongitude());
+            values.put(LocationColumns.COLUMN_PHONE, address.getPhone());
+            values.put(LocationColumns.COLUMN_POSTAL_CODE, address.getPostalCode());
+            values.put(LocationColumns.COLUMN_PREMISES, address.getPremises());
+            values.put(LocationColumns.COLUMN_SUB_ADMIN_AREA, address.getSubAdminArea());
+            values.put(LocationColumns.COLUMN_SUB_LOCALITY, address.getSubLocality());
+            values.put(LocationColumns.COLUMN_SUB_THOROUGHFARE, address.getSubThoroughfare());
+            values.put(LocationColumns.COLUMN_THOROUGHFARE, address.getThoroughfare());
+            values.put(LocationColumns.COLUMN_URL, address.getUrl());
+
+            Long id = db.insert(LocationColumns.TABLE_NAME, "NULL", values);
+            dataAddress.setId(id);
+            address_cache.put(id, dataAddress);
+            db.close();
+
+
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static DataAddress editAddress(Context context, DataAddress dataAddress) throws Exception {
+        lock.lock();
+        try {
+            DataAddress currentDataAddress = getAddress(context, dataAddress.getId());
+
+            if (currentDataAddress != null) {
+                currentDataAddress.setAddress(dataAddress.getAddress());
+                SQLiteDatabase db = getWritableDatabase(context);
+                ContentValues values = new ContentValues();
+                Address address = dataAddress.getAddress();
+                values.put(LocationColumns._ID, dataAddress.getId());
+                values.put(LocationColumns.COLUMN_MAX_ADDRESSLINE_INDEX, address.getMaxAddressLineIndex());
+                values.put(LocationColumns.COLUMN_LOCALE, address.getLocale().getLanguage());
+                for(int i = 0 ; i <= address.getMaxAddressLineIndex() ; i++){
+                    values.put(LocationColumns.COLUMN_ADDRESS_LINE + (i + 1), address.getAddressLine(i));
+                }
+                values.put(LocationColumns.COLUMN_ADMIN_AREA, address.getAdminArea());
+                values.put(LocationColumns.COLUMN_COUNTRY_CODE, address.getCountryCode());
+                values.put(LocationColumns.COLUMN_COUNTRY_NAME, address.getCountryName());
+                values.put(LocationColumns.COLUMN_FEATURE_NAME, address.getFeatureName());
+                values.put(LocationColumns.COLUMN_LATITUDE, address.getLatitude());
+                values.put(LocationColumns.COLUMN_LOCALITY, address.getLocality());
+                values.put(LocationColumns.COLUMN_LONGITUDE, address.getLongitude());
+                values.put(LocationColumns.COLUMN_PHONE, address.getPhone());
+                values.put(LocationColumns.COLUMN_POSTAL_CODE, address.getPostalCode());
+                values.put(LocationColumns.COLUMN_PREMISES, address.getPremises());
+                values.put(LocationColumns.COLUMN_SUB_ADMIN_AREA, address.getSubAdminArea());
+                values.put(LocationColumns.COLUMN_SUB_LOCALITY, address.getSubLocality());
+                values.put(LocationColumns.COLUMN_SUB_THOROUGHFARE, address.getSubThoroughfare());
+                values.put(LocationColumns.COLUMN_THOROUGHFARE, address.getThoroughfare());
+                values.put(LocationColumns.COLUMN_URL, address.getUrl());
+                // Insert the new row, returning the primary key value of the new row
+                db.update(LocationColumns.TABLE_NAME, values, null, null);
+                db.close();
+                return currentDataAddress;
+            } else {
+                throw new Exception(dataAddress.getId() + " Address doesn't exists");
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public static void removeAddress(Context context, DataAddress dataAddress) throws Exception {
+        lock.lock();
+        try {
+            DataAddress currentDataAddress = getAddress(context, dataAddress.getId());
+
+            if (currentDataAddress != null) {
+                SQLiteDatabase db = getWritableDatabase(context);
+                db.delete(LocationColumns.TABLE_NAME, LocationColumns._ID + "=" + dataAddress.getId(), null);
+                db.close();
+                address_cache.remove(dataAddress.getId());
+            } else {
+                throw new Exception(dataAddress.getId() + " Address doesn't exists");
+            }
         } finally {
             lock.unlock();
         }
@@ -258,6 +565,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(IncomeCategoryColumns.TABLE_NAME, IncomeCategoryColumns._ID + "=" + category.getId(), null);
                 db.close();
+                income_cache.remove(category.getId());
             } else {
                 throw new Exception(category.getName() + " IncomeCategory doesn't exists");
             }
@@ -376,6 +684,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(ExpenseCategoryColumns.TABLE_NAME, ExpenseCategoryColumns._ID + "=" + category.getId(), null);
                 db.close();
+                expense_cache.remove(category.getId());
             } else {
                 throw new Exception(category.getName() + " ExpenseCategory doesn't exists");
             }
@@ -505,6 +814,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(AccountColumns.TABLE_NAME, AccountColumns._ID + "=" + account.getId(), null);
                 db.close();
+                account_cache.remove(account.getId());
             } else {
                 throw new Exception(account.getName() + " Account doesn't exists");
             }
@@ -634,6 +944,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(CurrencyColumns.TABLE_NAME, CurrencyColumns._ID + "=" + currency.getId(), null);
                 db.close();
+                currency_cache.remove(currency.getId());
             } else {
                 throw new Exception(currency.getName() + " Currency doesn't exists");
             }
@@ -660,6 +971,9 @@ class DatabaseQueryHandler {
                                 myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_NAME));
                         Long accountId = myCursor.getLong(
                                 myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_ACCOUNT_ID));
+                        Long addressId = myCursor.getLong(
+                                myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_lOCATION_ID));
+                        DataAddress address = getAddress(context,addressId);
                         Account account = getAccount(context, accountId);
                         Long cost = myCursor.getLong(
                                 myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_COST));
@@ -705,7 +1019,7 @@ class DatabaseQueryHandler {
 
 
 
-                        data_cache.put(id, new Data(id, name, account, cost, incomeCategory, expenseCategory, time, recur, transferTo, transferFrom));
+                        data_cache.put(id, new Data(id, name, account, cost, incomeCategory, expenseCategory, time, recur, transferTo, transferFrom, address));
                     } while (myCursor.moveToNext());
                 }
 
@@ -745,6 +1059,7 @@ class DatabaseQueryHandler {
             values.put(DataColumns.COLUMN_TRANSFER, data.isTransfer());
             values.put(DataColumns.COLUMN_TRANSFER_FROM, data.getTransferFromId());
             values.put(DataColumns.COLUMN_TRANSFER_TO, data.getTransferToId());
+            values.put(DataColumns.COLUMN_lOCATION_ID, data.getAddressId());
 
             Long id = db.insert(DataColumns.TABLE_NAME, "NULL", values);
             data.setId(id);
@@ -770,6 +1085,7 @@ class DatabaseQueryHandler {
                 currentData.setTime(data.getTime());
                 currentData.setTransferFrom(data.getTransferFrom());
                 currentData.setTransferTo(data.getTransferTo());
+                currentData.setAddress(data.getAddress());
                 SQLiteDatabase db = getWritableDatabase(context);
                 ContentValues values = new ContentValues();
                 values.put(DataColumns._ID, data.getId());
@@ -786,6 +1102,8 @@ class DatabaseQueryHandler {
                 values.put(DataColumns.COLUMN_TRANSFER, data.isTransfer());
                 values.put(DataColumns.COLUMN_TRANSFER_FROM, data.getTransferFromId());
                 values.put(DataColumns.COLUMN_TRANSFER_TO, data.getTransferToId());
+
+                values.put(DataColumns.COLUMN_lOCATION_ID, data.getAddressId());
                 // Insert the new row, returning the primary key value of the new row
                 db.update(DataColumns.TABLE_NAME, values, null, null);
                 db.close();
@@ -807,6 +1125,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(DataColumns.TABLE_NAME, DataColumns._ID + "=" + data.getId(), null);
                 db.close();
+                data_cache.remove(data.getId());
             } else {
                 throw new Exception(data.getName() + " Data doesn't exists");
             }
@@ -995,6 +1314,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(RecurColumns.TABLE_NAME, RecurColumns._ID + "=" + recur.getId(), null);
                 db.close();
+                recur_cache.remove(recur.getId());
             } else {
                 throw new Exception(recur.getName() + " Recur doesn't exists");
             }
@@ -1121,6 +1441,7 @@ class DatabaseQueryHandler {
                 SQLiteDatabase db = getWritableDatabase(context);
                 db.delete(ExpenseCategoryBudgetColumns.TABLE_NAME, ExpenseCategoryBudgetColumns._ID + "=" + expenseCategoryBudget.getId(), null);
                 db.close();
+                category_budget_cache.remove(expenseCategoryBudget.getId());
             } else {
                 throw new Exception(expenseCategoryBudget.getId() + " ExpenseCategoryBudget doesn't exists");
             }

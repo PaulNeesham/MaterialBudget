@@ -6,14 +6,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 
 /**
  * Created by PaulN on 14/08/2015.
  */
 public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
+    private final Context context;
+
     public ScrollAwareFABBehavior(Context context, AttributeSet attrs) {
         super();
+        this.context = context;
     }
 
     @Override
@@ -31,12 +35,22 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
             child.hide();
+            ((MainActivity) context).hideLabels();
+            child.setTag("closed");
+            final OvershootInterpolator interpolator = new OvershootInterpolator();
+
+            ViewCompat.animate(child).rotation(0f).withLayer().setDuration(300).setInterpolator(interpolator).start();
         } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
             child.show();
         }
 
         if (dxConsumed > 0 && child.getVisibility() == View.VISIBLE) {
             child.hide();
+            ((MainActivity) context).hideLabels();
+            child.setTag("closed");
+            final OvershootInterpolator interpolator = new OvershootInterpolator();
+
+            ViewCompat.animate(child).rotation(0f).withLayer().setDuration(300).setInterpolator(interpolator).start();
         } else if (dxConsumed < 0 && child.getVisibility() != View.VISIBLE) {
             child.show();
         }

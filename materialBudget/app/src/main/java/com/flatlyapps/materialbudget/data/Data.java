@@ -1,5 +1,7 @@
 package com.flatlyapps.materialbudget.data;
 
+import android.location.Address;
+
 import org.joda.time.DateTime;
 
 
@@ -18,8 +20,9 @@ public class Data {
     private Recur recur;
     private Account transferTo;
     private Account transferFrom;
+    private DataAddress address;
 
-    public Data(Long id, String name, Account account, Long cost, IncomeCategory incomeCategory, ExpenseCategory expenseCategory, DateTime time, Recur recur, Account transferTo, Account transferFrom) {
+    public Data(Long id, String name, Account account, Long cost, IncomeCategory incomeCategory, ExpenseCategory expenseCategory, DateTime time, Recur recur, Account transferTo, Account transferFrom, DataAddress address) {
         this.id = id;
         this.name = name;
         this.account = account;
@@ -30,6 +33,7 @@ public class Data {
         this.recur = recur;
         this.transferTo = transferTo;
         this.transferFrom = transferFrom;
+        this.address = address;
     }
 
     public Long getId() {
@@ -78,6 +82,14 @@ public class Data {
 
     public void setExpenseCategory(ExpenseCategory expenseCategory) {
         this.expenseCategory = expenseCategory;
+    }
+
+    public DataAddress getAddress() {
+        return address;
+    }
+
+    public void setAddress(DataAddress address) {
+        this.address = address;
     }
 
     public DateTime getTime() {
@@ -185,4 +197,10 @@ public class Data {
         return id != null ? id.hashCode() : 0;
     }
 
+    public Long getAddressId() {
+        if(address != null) {
+            return address.getId();
+        }
+        return null;
+    }
 }

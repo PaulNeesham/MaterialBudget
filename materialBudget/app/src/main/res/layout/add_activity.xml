@@ -13,12 +13,7 @@
         android:layout_height="72dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/name_icon"
-            android:padding="12dp"
-            android:src="@drawable/ic_shopping_basket_black_24dp" />
+
 
 
             <android.support.design.widget.TextInputLayout
@@ -48,12 +43,7 @@
         android:layout_height="72dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/category_icon"
-            android:padding="12dp"
-            android:src="@drawable/ic_layers_black_24dp" />
+
 
 
         <android.support.design.widget.TextInputLayout

@@ -19,6 +19,9 @@
 
     <string name="done_button">DONE</string>
 
+    <string name="transfer_label">Transfer</string>
+    <string name="income_label">Income</string>
+    <string name="expense_label">Expense</string>
 
     <string name="add_name_hint">Name</string>
     <string name="add_category_hint">Category</string>
