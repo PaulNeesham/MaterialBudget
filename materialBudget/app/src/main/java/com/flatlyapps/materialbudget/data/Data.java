@@ -21,8 +21,10 @@ public class Data {
     private Account transferTo;
     private Account transferFrom;
     private DataAddress address;
+    private DataPhotos dataPhotos;
 
-    public Data(Long id, String name, Account account, Long cost, IncomeCategory incomeCategory, ExpenseCategory expenseCategory, DateTime time, Recur recur, Account transferTo, Account transferFrom, DataAddress address) {
+
+    public Data(Long id, String name, Account account, Long cost, IncomeCategory incomeCategory, ExpenseCategory expenseCategory, DateTime time, Recur recur, Account transferTo, Account transferFrom, DataAddress address, DataPhotos dataPhotos) {
         this.id = id;
         this.name = name;
         this.account = account;
@@ -34,6 +36,7 @@ public class Data {
         this.transferTo = transferTo;
         this.transferFrom = transferFrom;
         this.address = address;
+        this.dataPhotos = dataPhotos;
     }
 
     public Long getId() {
@@ -82,6 +85,14 @@ public class Data {
 
     public void setExpenseCategory(ExpenseCategory expenseCategory) {
         this.expenseCategory = expenseCategory;
+    }
+
+    public DataPhotos getPhoto() {
+        return dataPhotos;
+    }
+
+    public void setPhoto(DataPhotos dataPhotos) {
+        this.dataPhotos = dataPhotos;
     }
 
     public DataAddress getAddress() {
@@ -200,6 +211,13 @@ public class Data {
     public Long getAddressId() {
         if(address != null) {
             return address.getId();
+        }
+        return null;
+    }
+
+    public Long getPhotoId() {
+        if(dataPhotos != null) {
+            return dataPhotos.getId();
         }
         return null;
     }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
-import android.net.Uri;
 
 import com.flatlyapps.materialbudget.data.Account;
 import com.flatlyapps.materialbudget.data.Currency;
@@ -20,8 +19,6 @@ import com.google.ical.values.RRule;
 
 import org.joda.time.DateTime;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -37,9 +34,9 @@ import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.ExpenseCategoryBudgetColumns;
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.ExpenseCategoryColumns;
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.IncomeCategoryColumns;
-import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.RecurColumns;
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.LocationColumns;
 import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.PhotoColumns;
+import static com.flatlyapps.materialbudget.utilMethods.TransactionDataContract.RecurColumns;
 
 /**
  * Created by PaulN on 12/08/2015.
@@ -973,7 +970,10 @@ class DatabaseQueryHandler {
                                 myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_ACCOUNT_ID));
                         Long addressId = myCursor.getLong(
                                 myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_lOCATION_ID));
-                        DataAddress address = getAddress(context,addressId);
+                        DataAddress address = getAddress(context, addressId);
+                        Long photoId = myCursor.getLong(
+                                myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_PHOTO_ID));
+                        DataPhotos photo = getPhoto(context, photoId);
                         Account account = getAccount(context, accountId);
                         Long cost = myCursor.getLong(
                                 myCursor.getColumnIndexOrThrow(DataColumns.COLUMN_COST));
@@ -1019,7 +1019,7 @@ class DatabaseQueryHandler {
 
 
 
-                        data_cache.put(id, new Data(id, name, account, cost, incomeCategory, expenseCategory, time, recur, transferTo, transferFrom, address));
+                        data_cache.put(id, new Data(id, name, account, cost, incomeCategory, expenseCategory, time, recur, transferTo, transferFrom, address, photo));
                     } while (myCursor.moveToNext());
                 }
 
@@ -1060,6 +1060,7 @@ class DatabaseQueryHandler {
             values.put(DataColumns.COLUMN_TRANSFER_FROM, data.getTransferFromId());
             values.put(DataColumns.COLUMN_TRANSFER_TO, data.getTransferToId());
             values.put(DataColumns.COLUMN_lOCATION_ID, data.getAddressId());
+            values.put(DataColumns.COLUMN_PHOTO_ID, data.getPhotoId());
 
             Long id = db.insert(DataColumns.TABLE_NAME, "NULL", values);
             data.setId(id);
@@ -1086,6 +1087,7 @@ class DatabaseQueryHandler {
                 currentData.setTransferFrom(data.getTransferFrom());
                 currentData.setTransferTo(data.getTransferTo());
                 currentData.setAddress(data.getAddress());
+                currentData.setPhoto(data.getPhoto());
                 SQLiteDatabase db = getWritableDatabase(context);
                 ContentValues values = new ContentValues();
                 values.put(DataColumns._ID, data.getId());
@@ -1102,8 +1104,8 @@ class DatabaseQueryHandler {
                 values.put(DataColumns.COLUMN_TRANSFER, data.isTransfer());
                 values.put(DataColumns.COLUMN_TRANSFER_FROM, data.getTransferFromId());
                 values.put(DataColumns.COLUMN_TRANSFER_TO, data.getTransferToId());
-
                 values.put(DataColumns.COLUMN_lOCATION_ID, data.getAddressId());
+                values.put(DataColumns.COLUMN_PHOTO_ID, data.getPhotoId());
                 // Insert the new row, returning the primary key value of the new row
                 db.update(DataColumns.TABLE_NAME, values, null, null);
                 db.close();

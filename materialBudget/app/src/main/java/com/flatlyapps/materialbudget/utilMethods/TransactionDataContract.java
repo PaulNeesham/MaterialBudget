@@ -43,6 +43,7 @@ import com.flatlyapps.materialbudget.R;
         public static final String COLUMN_TRANSFER_FROM = "transfer_from";
         public static final String COLUMN_RECUR_ID = "recur_id";
         public static final String COLUMN_lOCATION_ID = "location_id";
+        public static final String COLUMN_PHOTO_ID = "photo_id";
     }
 
     private static final String SQL_CREATE_DATA = "CREATE TABLE "
@@ -61,7 +62,8 @@ import com.flatlyapps.materialbudget.R;
             + DataColumns.COLUMN_TRANSFER_TO + LONG_TYPE + COMMA_SEP
             + DataColumns.COLUMN_TRANSFER_FROM + LONG_TYPE + COMMA_SEP
             + DataColumns.COLUMN_RECUR_ID + LONG_TYPE + COMMA_SEP
-            + DataColumns.COLUMN_lOCATION_ID + LONG_TYPE
+            + DataColumns.COLUMN_lOCATION_ID + LONG_TYPE + COMMA_SEP
+            + DataColumns.COLUMN_PHOTO_ID + LONG_TYPE
             + " )";
 
     public static abstract class RecurColumns implements BaseColumns {
