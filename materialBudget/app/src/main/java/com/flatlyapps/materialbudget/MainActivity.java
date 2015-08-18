@@ -90,15 +90,21 @@ public class MainActivity extends AppCompatActivity {
         fabMiniLabel1 = (TextView) findViewById(R.id.fab_add_mini_label_transfer);
         fabMiniLabel1.setScaleX(0.0f);
         fabMiniLabel1.setScaleY(0.0f);
+        fabMini1.setScaleX(0.0f);
+        fabMini1.setScaleY(0.0f);
 
         fabMini2 = (FloatingActionButton) findViewById(R.id.fab_add_mini_expense);
         fabMiniLabel2 = (TextView) findViewById(R.id.fab_add_mini_label_expense);
         fabMiniLabel2.setScaleX(0.0f);
         fabMiniLabel2.setScaleY(0.0f);
+        fabMini2.setScaleX(0.0f);
+        fabMini2.setScaleY(0.0f);
         fabMini3 = (FloatingActionButton) findViewById(R.id.fab_add_mini_income);
         fabMiniLabel3 = (TextView) findViewById(R.id.fab_add_mini_label_income);
         fabMiniLabel3.setScaleX(0.0f);
         fabMiniLabel3.setScaleY(0.0f);
+        fabMini3.setScaleX(0.0f);
+        fabMini3.setScaleY(0.0f);
         fabData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
